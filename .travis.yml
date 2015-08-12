@@ -4,11 +4,13 @@ sudo : required
 r_binary_packages :
  - Runit
  - Rcpp
- - methods
  - DBI
  - RSQLite
  - seqinr
+ 
+r_packages :
  - protViz
+ - methods
 
 bioc_packages :
  - BiocGenerics
