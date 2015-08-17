@@ -2,17 +2,19 @@ language : r
 sudo : required
 
 r_binary_packages :
-	- Runit
-	- Rcpp
-	- methods
-	- DBI
-	- RSQLite
-	- seqinr
-	- protViz
+ - Runit
+ - Rcpp
+ - DBI
+ - RSQLite
+ - seqinr
+ 
+r_packages :
+ - protViz
+ - methods
 
 bioc_packages :
-	- BiocGenerics
-	- BiocStyle
-	- BiocParallel
-	- plotrix
+ - BiocGenerics
+ - BiocStyle
+ - BiocParallel
+ - plotrix
 
