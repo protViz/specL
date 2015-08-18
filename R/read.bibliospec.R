@@ -45,13 +45,17 @@
 }
 
 .convert_blib2psm <- function(data){
-  N <- nrow(data)
+  if(require(BiocParallel) & length(data) > 200){
+      data <- parallel::bplapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
+  }else{
+    N <- nrow(data)
     res <- vector(N, mode="list")
     for (i in 1:N){
         x <- data[i, ]
         res[[i]] = .convert_blib2psmInternal(x)
     }
-	return(res)
+	  return(res)
+  }
 }
 
 read.bibliospec <- function(file,ncores=NULL){
@@ -99,7 +103,6 @@ read.bibliospec <- function(file,ncores=NULL){
         res[[data.modifications$RefSpectraID[i]]]$varModification[data.modifications$position[i]] <- data.modifications$mass[i]
     }
     class(res)='psmSet'
-
     dbDisconnect(con)
     return(res)
 }
@@ -107,7 +110,6 @@ read.bibliospec <- function(file,ncores=NULL){
 #s<-read.bibliospec("/scratch/specL_revisions_201412/p1000_testBelowFour.redundant.blib")
 
 summary.psmSet <- function (object, ...){
-  
     cat("Summary of a \"psmSet\" object.")
 
     cat("\nNumber of precursor:\n\t")
