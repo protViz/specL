@@ -19,7 +19,7 @@ annotate.protein_id <- function(data,
   message("start protein annotation ..." )
   time.start <- Sys.time();
   
-    if(require(BiocParallel) & length(data) > 200){
+    if( length(data) > 200 & detectCores() > 1){
       #data <- BiocParallel::bplapply(data, .annotateProteinIDGrep, fasta, digestPattern) 
       data <- parallel::mclapply(data, .annotateProteinIDGrep, fasta, digestPattern, mc.cores = min(4,detectCores() )) 
       

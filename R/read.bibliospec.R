@@ -45,7 +45,7 @@
 }
 
 .convert_blib2psm <- function(data){
-  if(require(BiocParallel) & length(data) > 200){
+  if(length(data) > 200 && detectCores() > 1){
       data <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
   }else{
     N <- nrow(data)
