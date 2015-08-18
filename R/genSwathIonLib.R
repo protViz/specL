@@ -304,7 +304,7 @@ genSwathIonLib <- function(data,
     message(paste("length of findNN idx ", length(findNN.idx)))
 
     # prepare table for output
-    if ( detectCores() > 1 & length(data) > 200){
+    if ( parallel::detectCores() > 1 & length(data) > 200){
         message("using BiocParallel::bpmapply( ..." )
         output <- parallel::mcmapply (.genSwathIonLibSpecL, 
             data, fi, findNN.idx, mZ.error, x.rt, 

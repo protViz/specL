@@ -46,9 +46,9 @@
 }
 
 .convert_blib2psm <- function(data){
-  #if(length(data) > 200 && detectCores() > 1){
-  #    res <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
-  #}else{
+  if(length(data) > 200 && parallel::detectCores() > 1){
+      res <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
+  }else{
     N <- nrow(data)
     res <- vector(N, mode="list")
     for (i in 1:N){
@@ -56,7 +56,7 @@
         res[[i]] = .convert_blib2psmInternal(x)
     }
 	  return(res)
-  #}
+  }
 }
 
 read.bibliospec <- function(file,ncores=NULL){

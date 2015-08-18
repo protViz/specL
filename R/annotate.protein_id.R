@@ -21,7 +21,7 @@ annotate.protein_id <- function(data,
   
     if( length(data) > 200 & detectCores() > 1){
       #data <- BiocParallel::bplapply(data, .annotateProteinIDGrep, fasta, digestPattern) 
-      data <- parallel::mclapply(data, .annotateProteinIDGrep, fasta, digestPattern, mc.cores = min(4,detectCores() )) 
+      data <- parallel::mclapply(data, .annotateProteinIDGrep, fasta, digestPattern, mc.cores = min(4,parallel::detectCores() )) 
       
     }else{
       data <- lapply(data, .annotateProteinIDGrep, fasta, digestPattern)
