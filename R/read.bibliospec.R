@@ -46,7 +46,7 @@
 
 .convert_blib2psm <- function(data){
   if(require(BiocParallel) & length(data) > 200){
-      data <- parallel::bplapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
+      data <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
   }else{
     N <- nrow(data)
     res <- vector(N, mode="list")
@@ -61,7 +61,7 @@
 read.bibliospec <- function(file,ncores=NULL){
     m <- dbDriver("SQLite", max.con=25)       
     con <- dbConnect(m , dbname=file, flags = SQLITE_RO)
-
+    
     SQLQuery0 <- dbSendQuery(con, statement = paste(
         "SELECT numPeaks, peakMZ, peakIntensity, peptideSeq,",
         "precursorCharge, precursorMZ, retentionTime,",
