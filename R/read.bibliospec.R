@@ -42,12 +42,13 @@
     varModification=rep(0.0, nchar(x$peptideSeq)),
     mascotScore = -10 * log((1E-6 + x$score)) / log(10))
   class(res) = "psm"
+  return(res)
 }
 
 .convert_blib2psm <- function(data){
-  if(length(data) > 200 && detectCores() > 1){
-      data <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
-  }else{
+  #if(length(data) > 200 && detectCores() > 1){
+  #    res <- parallel::mcmapply( data, .convert_blib2psmInternal , mc.cores =  min(4,detectCores() )) 
+  #}else{
     N <- nrow(data)
     res <- vector(N, mode="list")
     for (i in 1:N){
@@ -55,7 +56,7 @@
         res[[i]] = .convert_blib2psmInternal(x)
     }
 	  return(res)
-  }
+  #}
 }
 
 read.bibliospec <- function(file,ncores=NULL){
@@ -88,7 +89,7 @@ read.bibliospec <- function(file,ncores=NULL){
         stop(msg$errorMsg)
     }
 
-    data.modifications <- DBI::fetch(SQLQuery1, n = -1)
+    modifications <- DBI::fetch(SQLQuery1, n = -1)
 
     if (msg<-dbGetException(con)$errorNum != 0){
         stop(msg$errorMsg)
@@ -96,11 +97,11 @@ read.bibliospec <- function(file,ncores=NULL){
 
     message(paste("fetched", nrow(data), "rows."))
     
-    res <- .convert_blib2psm(data)
+    res <<- .convert_blib2psm(data)
     
-    message(paste("assigning", nrow(data.modifications), "modifications ..."))
-    for (i in 1:nrow(data.modifications)){
-        res[[data.modifications$RefSpectraID[i]]]$varModification[data.modifications$position[i]] <- data.modifications$mass[i]
+    message(paste("assigning", nrow(modifications), "modifications ..."))
+    for (i in 1:nrow(modifications)){
+        res[[ modifications$RefSpectraID[i] ]]$varModification[modifications$position[i]] <- modifications$mass[i]
     }
     class(res)='psmSet'
     dbDisconnect(con)
