@@ -7,3 +7,8 @@ This is a read-only mirror of the Bioconductor SVN repository. Contributions: h
 ## On how to commit to github and the bioconductor svn follow instructions here:
 http://www.bioconductor.org/developers/how-to/git-mirrors/
 
+```r
+install.packages("devtools")
+library(devtools)
+install_github("fgcz/specL")
+```
