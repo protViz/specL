@@ -50,7 +50,6 @@ setMethod("show", "specL", function(object){
 
 setMethod(f="plot", signature="specL", 
           definition=function(x, y, ...){
-  
   q3<-slot(x, "q3")
   relativeFragmentIntensity <- slot(x, "relativeFragmentIntensity")
   #n<-nchar(as.character(unique(file)))
