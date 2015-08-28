@@ -305,27 +305,27 @@ setGeneric("getProteinPeptideTable",
 setMethod(f="getProteinPeptideTable",  signature="specLSet",
           definition=function(object, ...){
             specLibrary = object
-            
             extractPrecursorCharge = function(tmp){
-              peps <- paste(tmp@peptideModSeq, tmp@prec_z,sep=".")
+              peps <- c("peptideSequence"=tmp@peptide_sequence,
+                        "peptideModSequence" = tmp@peptideModSeq,
+                        "z"=tmp@prec_z,
+                        "m"=tmp@q1)
               prots <- tmp@proteinInformation
-              peps <- rep(peps,length(prots))
-              cbind(prots,peps)
+              tmp = NULL
+              if(length(prots) > 0){
+                for(i in 1:length(prots)){
+                  tmp = rbind(tmp, peps)
+                }
+                return(cbind(prots,tmp))
+              }else{
+                return(cbind("",t(peps)))
+              }
+              
             }
-            
-            extractPeptide = function(tmp){
-              peps <- tmp@peptide_sequence
-              prots <- tmp@proteinInformation
-              peps <- rep(peps,length(prots))
-              cbind(prots,peps)
-            }
-            
-            res = lapply(specLibrary@ionlibrary,extractPeptide)
-            
-            res2<-NULL
+            res <- lapply(specLibrary@ionlibrary,extractPrecursorCharge)
+            res2 <- NULL
             for(i in 1:length(res)){
               res2 <- rbind(res2, res[[i]] )
             }
-            
             return(res2)
           })

@@ -20,7 +20,11 @@ annotate.protein_id <- function(data,
   time.start <- Sys.time();
   
     if( length(data) > 200 & parallel::detectCores(logical=FALSE) > 1){
-      data <- parallel::mclapply(data, .annotateProteinIDGrep, fasta, digestPattern, mc.cores = parallel::detectCores(logical=FALSE) ) 
+      mc.cores = 1
+      if(Sys.info()['sysname'] != "Windows"){
+        mc.cores = parallel::detectCores(logical=FALSE)
+      }
+      data <- parallel::mclapply(data, .annotateProteinIDGrep, fasta, digestPattern, mc.cores =  mc.cores) 
     }else{
       data <- lapply(data, .annotateProteinIDGrep, fasta, digestPattern)
     }
