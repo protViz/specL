@@ -318,7 +318,7 @@ setMethod(f="getProteinPeptideTable",  signature="specLSet",
                 }
                 return(cbind(prots,tmp))
               }else{
-                return(cbind("",t(peps)))
+                return(cbind("NA",t(peps)))
               }
               
             }
