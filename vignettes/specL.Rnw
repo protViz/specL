@@ -191,7 +191,7 @@ peptideStd[[demoIdx]]$proteinInformation
 The protein information can be added as follow:
 <<keep.source = TRUE, eval = TRUE, fig = FALSE>>=
 peptideStd <- annotate.protein_id(peptideStd, 
-    fasta=fasta.irtFASTAseq)
+    fasta=fasta.irtFASTAseq,mcCores = 1)
 @
 
 The following lines show now the object indices of those entries which do
@@ -228,7 +228,7 @@ Generating the ion library using iRT peptides is highly recommended as described
 However if you have no iRT peptide continue reading in section \ref{sec:noiRT}.
 
 Generation of the spec Library with default (see Table \ref{table:default}) settings.
-<<keep.source = TRUE, eval = TRUE, fig = FALSE>>=
+<<genLib, keep.source = TRUE, eval = TRUE, fig = FALSE>>=
 res.genSwathIonLib <- genSwathIonLib(data=peptideStd, 
                                      data.fit=peptideStd.redundant)
 @
@@ -322,7 +322,6 @@ iRTpeptides
 
 
 The method genSwathIonLib uses:
-
 <<keep.source = TRUE, eval = FALSE, fig = FALSE>>=
 fit <- lm(formula = rt ~ aggregateInputRT * fileName, data=m)
 
@@ -367,7 +366,7 @@ regression.
 \subsection{Generate the spectral library having no iRTs\label{sec:noiRT}}
 If no iRT peptides are contained in the data not iRT normalization is applied.
 The scatter plot below shows on the y axis that there were not iRT transformation.
-<<keep.source = TRUE, eval = TRUE, fig = TRUE, width=8, height=6>>=
+<<gnerateLibrary,keep.source = TRUE, eval = TRUE, fig = TRUE, width=8, height=6>>=
 idx.iRT<-which(unlist(lapply(peptideStd, function(x){
   if(x$peptideSequence %in% iRTpeptides$peptide){0}else{1}
   })) == 0)

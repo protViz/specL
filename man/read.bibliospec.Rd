@@ -15,24 +15,22 @@
 \title{BiblioSpec Reader}
 
 \description{
-
     This function reads a BiblioSpec generated file and returns 
     a list of tandem mass specs (psm objects), 
     peptide assignments, retention times, and 
     modifications records. The type of the data structire which is 
     returned is called psmSet.
-    
 }
 
 \usage{
 
-    read.bibliospec(file)
+    read.bibliospec(file,ncores=NULL)
 }
 
 \arguments{
 
   \item{file}{the name of the BiblioSpec generated SQLite file.}
-
+ \item{ncores}{number of cores to use. If NULL function determines by itself the number of cores to use}
 }
 
 \details{
@@ -68,7 +66,7 @@
 
 \author{
 
-   Christian Panse, 2014, 2015
+   Witold Wolski and Christian Panse, 2014, 2015
 
 }
 

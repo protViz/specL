@@ -22,22 +22,21 @@ function(){
     
     length(peptideStd)
     peptideStd <- specL::annotate.protein_id(peptideStd,
-        fasta=fasta.irtFASTAseq)
+        fasta=fasta.irtFASTAseq,mcCores = 1)
 
-    idx<-which(unlist(lapply(peptideStd, 
-        function(x){length(x$proteinInformation)>0})))
-
-
+    length(peptideStd[[1]]$proteinInformation)
+    lapply(peptideStd,function(x){print(x$proteinInformation)})
+    gg <- sapply(peptideStd, function(x){length(x$proteinInformation)})
+    
+    idx<-which(gg > 0)
+    idx
+    
     checkIdentical(unlist(lapply(idx, function(x){peptideStd[[x]]$proteinInformation})), rep("zz|ZZ_FGCZCont0260|",6))
 
     (idx<-which(unlist(lapply(peptideStd, 
         function(x){length(x$proteinInformation) == 0 }))))
-
     checkEqualsNumeric(sum(idx),  9001, tolerance=0.001)
-    
     checkIdentical(unlist(lapply(idx, function(x){peptideStd[[x]]$proteinInformation})), rep(character(0), 131))
-        
-
 }
 
 test_annotate.protein_id()

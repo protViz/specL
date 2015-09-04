@@ -15,7 +15,7 @@ a peptide sequence assigned.
 \usage{
 
 annotate.protein_id(data, file = NULL, fasta = read.fasta(file = file, 
-         as.string = TRUE, seqtype = "AA"), digestPattern = "(([RK])|(^)|(^M))") 
+         as.string = TRUE, seqtype = "AA"), digestPattern = "(([RK])|(^)|(^M))",mcCores = parallel::detectCores(logical=FALSE)) 
 
 }
 
@@ -30,6 +30,8 @@ annotate.protein_id(data, file = NULL, fasta = read.fasta(file = file,
 
   \item{digestPattern}{a regex pattern which can be used by the \code{grep} 
   command. the default regex pattern assumes a tryptic digest.}
+  
+  \item{mcCores}{number of cores to use}
 
 }
 
@@ -63,7 +65,8 @@ the function.
 
 \author{
 
-   Jonas Grossmann and Christian Panse, 2014
+   Jonas Grossmann, Witold Wolski and Christian Panse, 2014
+   
 }
 
 \value{
@@ -94,7 +97,7 @@ the function.
     #annotate with proteinID 
     # -> here we find all psms from the one proteinID above
       peptideStd <- specL::annotate.protein_id(peptideStd, 
-      fasta=fasta.irtFASTAseq)
+      fasta=fasta.irtFASTAseq, mcCores=1)
   
     #show indices for all PSMs where we have a proteinInformation
      which(unlist(lapply(peptideStd, 

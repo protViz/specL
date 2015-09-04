@@ -12,7 +12,7 @@
 specL <- setClass("specL",
   slots=c(group_id="character",
     peptide_sequence="character",
-    proteinInformation="character",
+    proteinInformation="vector",
     q1="numeric",
     q1.in_silico="numeric",
     q3="numeric",

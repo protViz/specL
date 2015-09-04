@@ -327,5 +327,6 @@ setMethod(f="getProteinPeptideTable",  signature="specLSet",
             for(i in 1:length(res)){
               res2 <- rbind(res2, res[[i]] )
             }
+            colnames(res2)[1] <- "proteinID"
             return(res2)
           })
