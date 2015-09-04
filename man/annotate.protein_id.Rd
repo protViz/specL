@@ -15,7 +15,8 @@ a peptide sequence assigned.
 \usage{
 
 annotate.protein_id(data, file = NULL, fasta = read.fasta(file = file, 
-         as.string = TRUE, seqtype = "AA"), digestPattern = "(([RK])|(^)|(^M))",mcCores = parallel::detectCores(logical=FALSE)) 
+         as.string = TRUE, seqtype = "AA"), digestPattern = "(([RK])|(^)|(^M))",
+         mcCores = parallel::detectCores(logical=FALSE)) 
 
 }
 

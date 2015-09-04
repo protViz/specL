@@ -320,7 +320,6 @@ setMethod(f="getProteinPeptideTable",  signature="specLSet",
               }else{
                 return(cbind("NA",t(peps)))
               }
-              
             }
             res <- lapply(specLibrary@ionlibrary,extractPrecursorCharge)
             res2 <- NULL
