@@ -18,3 +18,4 @@ bioc_packages :
  - BiocParallel
  - plotrix
 
+warnings_are_errors: true
