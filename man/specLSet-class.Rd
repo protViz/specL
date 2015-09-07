@@ -30,6 +30,9 @@
 \alias{ionlibrary}
 \alias{ionlibrary,specLSet-method}
 
+\alias{getProteinPeptideTable}
+\alias{getProteinPeptideTable,specLSet-method}
+
 \title{Class \code{"specLSet"}}
 
 \description{
@@ -83,7 +86,7 @@
 
     \item{rt.normalized}{\code{signature(x = "specLSet")}: returns a numeric vector of normalized rt values. }
     
-    \item{getProteinPeptideTable}{\code{signature(object = "specLSet")}: returns table of peptide protein mappings. }
+    \item{getProteinPeptideTable}{\code{signature(x = "specLSet")}: returns table of peptide protein mappings. }
 	
     }
 
